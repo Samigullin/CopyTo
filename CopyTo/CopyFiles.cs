@@ -71,7 +71,7 @@ namespace CopyTo
                 fsOut.Close();
             }
 
-            Status = "Готов!";
+            Status = fileName + " скопирован";
         }
 
         /// <summary>

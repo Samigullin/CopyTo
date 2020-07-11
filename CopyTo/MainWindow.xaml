@@ -5,8 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CopyTo"
         mc:Ignorable="d"
-        Title="CopyTo" Height="399" Width="1000
-        ">
+        Title="CopyTo" Height="399" Width="600">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="80"/>
@@ -20,7 +19,7 @@
             <RowDefinition Height="25"/>
             <RowDefinition Height="25"/>
             <RowDefinition/>
-            <RowDefinition Height="20"/>
+            <RowDefinition Height="25"/>
         </Grid.RowDefinitions>
 
 
@@ -49,14 +48,17 @@
                   Margin="2,2,1.8,1.6" Grid.Row="4"  
                   AutoGenerateColumns="False"
                   IsReadOnly="True" 
-                  MouseDoubleClick="lvFiles_MouseDoubleClick" >
+                  MouseDoubleClick="lvFiles_MouseDoubleClick" 
+                  AlternatingRowBackground="DarkGray"
+                  HorizontalGridLinesBrush="Gray">
+            
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Имя файла" 
-                                    Binding="{Binding Path=Name}" Width="auto"/>
+                                    Binding="{Binding Path=Name}" Width="3*"/>
                 <DataGridTextColumn Header="Дата изменения" 
                                     Binding="{Binding Path=Date}" Width="auto"/>
                 <DataGridTextColumn Header="Размер файла, кБ" 
-                                    Binding="{Binding Path=Size}" Width="auto"/>
+                                    Binding="{Binding Path=Size}" Width="2*"/>
             </DataGrid.Columns>
 
         </DataGrid>
@@ -66,13 +68,11 @@
             
             <StatusBarItem>
                 <TextBlock   Text="{Binding Path=(local:CopyFiles.Status)}" 
-                             MinWidth="80" MaxWidth="100"/>
+                             MinWidth="100"/>
             </StatusBarItem>
             
-            <StatusBarItem>
-                <ProgressBar x:Name="progressBar" Width="200" Height="14" Value="40"/>
-            </StatusBarItem>
-            
+            <StatusBarItem/>
+
         </StatusBar>
 
     </Grid>
