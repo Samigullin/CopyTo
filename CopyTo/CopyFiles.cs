@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Security.Authentication.ExtendedProtection;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,28 +14,62 @@ namespace CopyTo
 {
     public static class CopyFiles
     {
+
+        static string status = "Готов" ;
+
+        /// <summary> Статус копирования </summary>
+        public static string Status 
+        { 
+            get 
+            {
+                return status;
+            }
+            set
+            {
+                status = value;
+                NotifyStaticPropertyChanged();
+            }                
+        }
+        public static event EventHandler<PropertyChangedEventArgs> StaticPropertyChanged;
+        private static void NotifyStaticPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            StaticPropertyChanged?.Invoke(null, new PropertyChangedEventArgs(propertyName));
+        }
+
+        /// <summary>
+        /// Копирование одного файла
+        /// </summary>
+        /// <param name="fileName">Имя файла</param>
+        /// <param name="from">Откуда</param>
+        /// <param name="to">Куда</param>
         public static void copyOneFile(string fileName, string from, string to)
         {
+            Status = "Идет копирование";
             try
             {
                 File.Copy(from + "\\" + fileName, to + "\\" + fileName, true);
             }
             catch (Exception ex)
             {
+                Status = ex.Message;
                 MessageBox.Show(ex.Message);
             }
+
+            Status = "Готов!";
         }
 
         /// <summary>
-        /// Выполнить копирование
+        /// Копирование всех файлов в директории
         /// </summary>
         /// <param name="from">Начаьлная директория</param>
         /// <param name="to">Конечная директория</param>
         public static void execCopy(string from, string to)
         {
+            Status = "Идет копирование";
             try
             {
                 DirectoryInfo dirInfo = new DirectoryInfo(from);
+                DirectoryInfo dirInfoTo = new DirectoryInfo(to);
                 foreach (FileInfo file in dirInfo.GetFiles("*.*"))
                 {
                     File.Copy(file.FullName, to + "\\" + file.Name, true);
@@ -40,8 +77,11 @@ namespace CopyTo
             }
             catch (Exception ex)
             {
+                Status = ex.Message;
                 MessageBox.Show(ex.Message);
             }
+
+            Status = "Готов!";
         }
 
         /// <summary>

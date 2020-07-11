@@ -63,12 +63,16 @@
 
         <StatusBar Margin="0" Grid.Row="5" 
                    Grid.ColumnSpan="4">
+            
             <StatusBarItem>
-                <TextBlock Text="Готово" MinWidth="80" MaxWidth="100"/>
+                <TextBlock   Text="{Binding Path=(local:CopyFiles.Status)}" 
+                             MinWidth="80" MaxWidth="100"/>
             </StatusBarItem>
+            
             <StatusBarItem>
                 <ProgressBar Width="200" Height="14" Value="40"/>
             </StatusBarItem>
+            
         </StatusBar>
 
     </Grid>
