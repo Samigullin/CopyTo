@@ -70,7 +70,7 @@
             </StatusBarItem>
             
             <StatusBarItem>
-                <ProgressBar Width="200" Height="14" Value="40"/>
+                <ProgressBar x:Name="progressBar" Width="200" Height="14" Value="40"/>
             </StatusBarItem>
             
         </StatusBar>

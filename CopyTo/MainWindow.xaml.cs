@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,7 +20,7 @@ namespace CopyTo
     /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
-    {
+    {        
         public MainWindow()
         {
             InitializeComponent();
@@ -27,7 +28,9 @@ namespace CopyTo
             CopyFiles.loadConfig(out string from, out string to);
             tbFrom.Text = from;
             tbTo.Text = to;
+
         }
+
 
         private void btnCopy_Click(object sender, RoutedEventArgs e)
         {
@@ -42,6 +45,7 @@ namespace CopyTo
         private void lvFiles_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             CopyFiles.copyOneFile((dgFiles.SelectedItem as MyFileClass).Name, tbFrom.Text, tbTo.Text);
+
         }
     }
 }

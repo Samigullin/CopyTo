@@ -45,14 +45,30 @@ namespace CopyTo
         public static void copyOneFile(string fileName, string from, string to)
         {
             Status = "Идет копирование";
+            FileStream fsIn = new FileStream(from + "\\" + fileName, FileMode.Open);
+            FileStream fsOut = new FileStream(to + "\\" + fileName, FileMode.Create);
+            byte[] bt = new byte[1048756];
+            int readByte;
+
             try
             {
-                File.Copy(from + "\\" + fileName, to + "\\" + fileName, true);
+                while ((readByte = fsIn.Read(bt, 0, bt.Length)) > 0)
+                {
+                    fsOut.Write(bt, 0, readByte);
+                }
+
+                //File.Copy(from + "\\" + fileName, to + "\\" + fileName, true);
+
             }
             catch (Exception ex)
             {
                 Status = ex.Message;
                 MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                fsIn.Close();
+                fsOut.Close();
             }
 
             Status = "Готов!";
